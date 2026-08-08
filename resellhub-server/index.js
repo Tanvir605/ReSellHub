@@ -18,45 +18,22 @@ const PORT = process.env.PORT || 5000;
 
 // ============ MIDDLEWARE ============
 // CORS Configuration - Production ready
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'https://resellhub-client-cyan.vercel.app',
-  'https://resellhub-client.vercel.app',
-  process.env.CLIENT_URL,
-].filter(Boolean);
-
-console.log('✅ Allowed Origins:', allowedOrigins);
-
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log('❌ CORS blocked:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://resellhub-client-cyan.vercel.app',
+    'https://resellhub-client.vercel.app',
+    process.env.CLIENT_URL || 'https://resellhub-client-cyan.vercel.app'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: [
-    'Content-Type',
-    'Authorization',
-    'X-Requested-With',
-    'Accept',
-    'Origin',
-    'Access-Control-Allow-Origin',
-    'Access-Control-Allow-Headers',
-    'Access-Control-Allow-Methods'
-  ],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   exposedHeaders: ['Content-Length', 'X-Request-Id'],
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
