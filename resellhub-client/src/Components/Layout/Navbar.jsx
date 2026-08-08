@@ -39,6 +39,8 @@ const Navbar = () => {
     ...(user ? [{ text: 'Messages', icon: <Chat />, path: '/chats' }] : []),
   ]
 
+  
+
   const drawer = (
     <Box sx={{ width: 280, p: 2 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
