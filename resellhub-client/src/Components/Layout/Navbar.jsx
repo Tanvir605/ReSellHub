@@ -1,3 +1,4 @@
+// frontend/src/components/Layout/Navbar.jsx
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -31,15 +32,16 @@ const Navbar = () => {
     navigate('/login')
     handleClose()
   }
+
+  // ✅ Mobile Menu Items - Role based
   const menuItems = [
     { text: 'Home', icon: <Home />, path: '/' },
     { text: 'Browse Products', icon: <Search />, path: '/products' },
     ...(user?.role === 'seller' ? [{ text: 'Sell', icon: <AddBox />, path: '/add-product' }] : []),
     ...(user ? [{ text: 'Dashboard', icon: <Dashboard />, path: `/dashboard/${user.role}` }] : []),
+    ...(user?.role === 'buyer' ? [{ text: 'My Orders', icon: <ShoppingCart />, path: '/orders/buyer' }] : []), // ✅ শুধু Buyer
     ...(user ? [{ text: 'Messages', icon: <Chat />, path: '/chats' }] : []),
   ]
-
-  
 
   const drawer = (
     <Box sx={{ width: 280, p: 2 }}>
@@ -232,9 +234,12 @@ const Navbar = () => {
                         <AddBox sx={{ mr: 2, color: '#667eea' }} /> Add Product
                       </MenuItem>
                     )}
-                    <MenuItem component={Link} to="/orders/buyer" onClick={handleClose}>
-                      <ShoppingCart sx={{ mr: 2, color: '#667eea' }} /> My Orders
-                    </MenuItem>
+                    {/* ✅ My Orders - শুধু Buyer দেখাবে */}
+                    {user.role === 'buyer' && (
+                      <MenuItem component={Link} to="/orders/buyer" onClick={handleClose}>
+                        <ShoppingCart sx={{ mr: 2, color: '#667eea' }} /> My Orders
+                      </MenuItem>
+                    )}
                     <MenuItem component={Link} to="/chats" onClick={handleClose}>
                       <Chat sx={{ mr: 2, color: '#667eea' }} /> Messages
                     </MenuItem>
