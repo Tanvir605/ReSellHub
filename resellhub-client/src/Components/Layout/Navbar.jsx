@@ -1,4 +1,3 @@
-// frontend/src/components/Layout/Navbar.jsx
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -32,13 +31,12 @@ const Navbar = () => {
     navigate('/login')
     handleClose()
   }
-
-  // Mobile Menu Items
   const menuItems = [
     { text: 'Home', icon: <Home />, path: '/' },
-    { text: 'Browse Products', icon: <Search />, path: '/' },
+    { text: 'Browse Products', icon: <Search />, path: '/products' },
     ...(user?.role === 'seller' ? [{ text: 'Sell', icon: <AddBox />, path: '/add-product' }] : []),
     ...(user ? [{ text: 'Dashboard', icon: <Dashboard />, path: `/dashboard/${user.role}` }] : []),
+    ...(user ? [{ text: 'Messages', icon: <Chat />, path: '/chats' }] : []),
   ]
 
   const drawer = (
@@ -120,7 +118,7 @@ const Navbar = () => {
               </motion.div>
             </Box>
 
-            {/* ✅ Desktop Navigation - Browse ঠিক করা */}
+            {/* Desktop Navigation */}
             <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
               <Button
                 component={Link}
@@ -232,7 +230,7 @@ const Navbar = () => {
                         <AddBox sx={{ mr: 2, color: '#667eea' }} /> Add Product
                       </MenuItem>
                     )}
-                     <MenuItem component={Link} to="/orders/buyer" onClick={handleClose}>
+                    <MenuItem component={Link} to="/orders/buyer" onClick={handleClose}>
                       <ShoppingCart sx={{ mr: 2, color: '#667eea' }} /> My Orders
                     </MenuItem>
                     <MenuItem component={Link} to="/chats" onClick={handleClose}>
@@ -246,7 +244,6 @@ const Navbar = () => {
                     }}>
                       <Logout sx={{ mr: 2 }} /> Logout
                     </MenuItem>
-                   
                   </Menu>
                 </>
               ) : (

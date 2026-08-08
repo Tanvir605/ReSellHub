@@ -5,7 +5,7 @@ import { AuthProvider, useAuth } from './context/AuthContext.jsx'
 import { Toaster } from 'react-hot-toast'
 import { motion, AnimatePresence } from 'framer-motion'
 
-// Layout
+// Layout - ✅ সব ছোট হাতের অক্ষরে (lowercase)
 import Navbar from './components/Layout/Navbar.jsx'
 import Footer from './components/Layout/Footer.jsx'
 
